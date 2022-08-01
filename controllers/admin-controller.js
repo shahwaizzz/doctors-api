@@ -1,4 +1,5 @@
 const User = require("../models/user-model");
+const Procedure = require("../models/procedure-model");
 const { StatusCodes } = require("http-status-codes");
 const { NotFoundError } = require("../errors");
 const createUser = async (req, res) => {
@@ -35,6 +36,44 @@ const updateUser = async (req, res) => {
       runValidators: true,
     }
   );
+  res.status(StatusCodes.OK).json({ msg: "User Updated" });
+};
+
+const createProcedure = async (req, res) => {
+  const procedure = await Procedure.create({ ...req.body });
+  res.status(StatusCodes.OK).json({ msg: "Procedure created" });
+};
+const getProcedure = async (req, res) => {
+  const procedures = await Procedure.find({});
+  if (procedures.length === 0) {
+    throw new NotFoundError("No Procedures yet");
+  }
+  res.status(StatusCodes.OK).json({ procedures });
+};
+const getSingleProcedure = async (req, res) => {
+  const procedure = await Procedure.findOne({ _id: req.params.id });
+  if (!procedure) {
+    throw new NotFoundError("This procedure does not exist");
+  }
+  res.status(StatusCodes.OK).json({ procedure });
+};
+const updateProcedure = async (req, res) => {
+  const updatedProcedure = await Procedure.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(StatusCodes.OK).json({ msg: "User Updated" });
+};
+const deleteProcedure = async (req, res) => {
+  const procedure = await Procedure.findByIdAndDelete({ _id: req.params.id });
+  if (!procedure) {
+    throw new NotFoundError("Procedure does not exist already");
+  }
+  res.status(StatusCodes.OK).json({ msg: "Procedure Deleted" });
 };
 
 module.exports = {
@@ -43,4 +82,9 @@ module.exports = {
   getSingleUser,
   deleteUsers,
   updateUser,
+  createProcedure,
+  getProcedure,
+  getSingleProcedure,
+  deleteProcedure,
+  updateProcedure,
 };

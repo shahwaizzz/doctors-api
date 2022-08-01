@@ -6,6 +6,11 @@ const {
   getSingleUser,
   deleteUsers,
   updateUser,
+  createProcedure,
+  getProcedure,
+  getSingleProcedure,
+  updateProcedure,
+  deleteProcedure,
 } = require("../controllers/admin-controller");
 
 router.route("/users").post(createUser).get(getUsers);
@@ -14,5 +19,10 @@ router
   .patch(updateUser)
   .delete(deleteUsers)
   .get(getSingleUser);
-
+router.route("/procedures").post(createProcedure).get(getProcedure);
+router
+  .route("/procedures/:id")
+  .get(getSingleProcedure)
+  .patch(updateProcedure)
+  .delete(deleteProcedure);
 module.exports = router;
