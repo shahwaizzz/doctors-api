@@ -6,6 +6,7 @@ const procedureSchema = new mongoose.Schema({
   },
   benefits: [
     {
+      _id: mongoose.Types.ObjectId,
       name: String,
       detail: String,
       statistics: String,
@@ -13,6 +14,7 @@ const procedureSchema = new mongoose.Schema({
   ],
   risks: [
     {
+      _id: mongoose.Types.ObjectId,
       name: String,
       detail: String,
       statistics: String,

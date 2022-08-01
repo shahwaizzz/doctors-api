@@ -40,7 +40,9 @@ const updateUser = async (req, res) => {
 };
 
 const createProcedure = async (req, res) => {
-  const procedure = await Procedure.create({ ...req.body });
+  const procedure = await Procedure.create({
+    ...req.body,
+  });
   res.status(StatusCodes.OK).json({ msg: "Procedure created" });
 };
 const getProcedure = async (req, res) => {
