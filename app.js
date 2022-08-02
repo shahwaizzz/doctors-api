@@ -1,5 +1,6 @@
 require("express-async-errors");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const notFoundMiddleware = require("./middlewares/not-found");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
@@ -9,7 +10,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user-routes");
 const authRoutes = require("./routes/auth-routes");
 const PORT = process.env.PORT || 5000;
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/auth", authRoutes);
