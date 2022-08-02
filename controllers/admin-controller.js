@@ -59,6 +59,16 @@ const getSingleProcedure = async (req, res) => {
   }
   res.status(StatusCodes.OK).json({ procedure });
 };
+const getProcedureByName = async (req, res) => {
+  const searchquery = req.query.query;
+  const procedure = await Procedure.findOne({
+    name: { $regex: searchquery, $options: "$i" },
+  });
+  if (!procedure) {
+    throw new NotFoundError("This procedure does not exist");
+  }
+  res.status(StatusCodes.OK).json({ procedure });
+};
 const updateProcedure = async (req, res) => {
   const updatedProcedure = await Procedure.findOneAndUpdate(
     { _id: req.params.id },
@@ -87,6 +97,7 @@ module.exports = {
   createProcedure,
   getProcedure,
   getSingleProcedure,
+  getProcedureByName,
   deleteProcedure,
   updateProcedure,
 };

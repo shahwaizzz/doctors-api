@@ -9,6 +9,7 @@ const {
   createProcedure,
   getProcedure,
   getSingleProcedure,
+  getProcedureByName,
   updateProcedure,
   deleteProcedure,
 } = require("../controllers/admin-controller");
@@ -20,6 +21,7 @@ router
   .delete(deleteUsers)
   .get(getSingleUser);
 router.route("/procedures").post(createProcedure).get(getProcedure);
+router.route("/search").get(getProcedureByName);
 router
   .route("/procedures/:id")
   .get(getSingleProcedure)
