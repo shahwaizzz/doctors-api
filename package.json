@@ -9,6 +9,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.0"
   },
+  "engines": {
+    "node": "14.18.0"
+  },
   "name": "backend",
   "version": "1.0.0",
   "main": "app.js",
