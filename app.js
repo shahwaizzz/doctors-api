@@ -9,12 +9,14 @@ const connectDb = require("./db/connect");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user-routes");
 const authRoutes = require("./routes/auth-routes");
+const doctorsRoutes = require("./routes/doctor-routes");
 const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/auth", authRoutes);
 app.use("/admin", userRoutes);
+app.use("/doctor", doctorsRoutes);
 // app.use('/user', authenticationMiddleware, (req, res) => {res})
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

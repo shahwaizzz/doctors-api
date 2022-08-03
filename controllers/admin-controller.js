@@ -87,6 +87,32 @@ const deleteProcedure = async (req, res) => {
   }
   res.status(StatusCodes.OK).json({ msg: "Procedure Deleted" });
 };
+const approveBenefit = async (req, res) => {
+  const procedure = await Procedure.findOneAndUpdate(
+    { "additionalBenefits._id": req.params.id },
+    {
+      $set: { "additionalBenefits.$.status": "Approved" },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(StatusCodes.OK).json({ msg: "Benefit Approved" });
+};
+const rejectBenefit = async (req, res) => {
+  const procedure = await Procedure.findOneAndUpdate(
+    { "additionalBenefits._id": req.params.id },
+    {
+      $set: { "additionalBenefits.$.status": "Rejected" },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(StatusCodes.OK).json({ msg: "Benefit Rejected" });
+};
 
 module.exports = {
   createUser,
@@ -100,4 +126,6 @@ module.exports = {
   getProcedureByName,
   deleteProcedure,
   updateProcedure,
+  approveBenefit,
+  rejectBenefit,
 };
