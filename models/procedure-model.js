@@ -30,6 +30,18 @@ const procedureSchema = new mongoose.Schema({
       },
     },
   ],
+  additionalRisks: [
+    {
+      name: String,
+      detail: String,
+      statistics: String,
+      status: {
+        type: String,
+        enum: ["Pending", "Approved", "Rejected"],
+        default: "Pending",
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Procedure", procedureSchema);

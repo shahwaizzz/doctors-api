@@ -14,6 +14,8 @@ const {
   deleteProcedure,
   approveBenefit,
   rejectBenefit,
+  approveRisk,
+  rejectRisk,
 } = require("../controllers/admin-controller");
 
 router.route("/users").post(createUser).get(getUsers);
@@ -34,4 +36,5 @@ router
   .route("/procedure/benefits/:id")
   .patch(approveBenefit)
   .put(rejectBenefit);
+router.route("/procedure/risks/:id").patch(approveRisk).put(rejectRisk);
 module.exports = router;

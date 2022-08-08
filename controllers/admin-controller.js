@@ -113,6 +113,32 @@ const rejectBenefit = async (req, res) => {
   );
   res.status(StatusCodes.OK).json({ msg: "Benefit Rejected" });
 };
+const approveRisk = async (req, res) => {
+  const procedure = await Procedure.findOneAndUpdate(
+    { "additionalRisks._id": req.params.id },
+    {
+      $set: { "additionalRisks.$.status": "Approved" },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(StatusCodes.OK).json({ msg: "Risk Approved" });
+};
+const rejectRisk = async (req, res) => {
+  const procedure = await Procedure.findOneAndUpdate(
+    { "additionalRisks._id": req.params.id },
+    {
+      $set: { "additionalRisks.$.status": "Rejected" },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(StatusCodes.OK).json({ msg: "Risk Rejected" });
+};
 
 module.exports = {
   createUser,
@@ -128,4 +154,6 @@ module.exports = {
   updateProcedure,
   approveBenefit,
   rejectBenefit,
+  approveRisk,
+  rejectRisk,
 };
