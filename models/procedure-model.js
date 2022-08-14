@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require("uuid");
 const procedureSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -6,6 +7,7 @@ const procedureSchema = new mongoose.Schema({
   },
   benefits: [
     {
+      code: String,
       name: String,
       detail: String,
       statistics: String,
@@ -13,6 +15,7 @@ const procedureSchema = new mongoose.Schema({
   ],
   risks: [
     {
+      code: String,
       name: String,
       detail: String,
       statistics: String,
@@ -20,6 +23,7 @@ const procedureSchema = new mongoose.Schema({
   ],
   additionalBenefits: [
     {
+      code: String,
       name: String,
       detail: String,
       statistics: String,
@@ -32,6 +36,7 @@ const procedureSchema = new mongoose.Schema({
   ],
   additionalRisks: [
     {
+      code: String,
       name: String,
       detail: String,
       statistics: String,
