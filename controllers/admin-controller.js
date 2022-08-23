@@ -119,6 +119,7 @@ const rejectBenefit = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Benefit Rejected" });
 };
 const approveRisk = async (req, res) => {
+  const { code } = req.body;
   const procedure = await Procedure.findOneAndUpdate(
     { "additionalRisks._id": req.params.id },
     {
