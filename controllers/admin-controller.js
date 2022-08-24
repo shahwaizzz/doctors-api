@@ -102,7 +102,18 @@ const approveBenefit = async (req, res) => {
       runValidators: true,
     }
   );
-
+  // const approvedBenefit = procedure.benefits.filter((benefit))
+  const approvedBenefit = await Procedure.findOne({
+    _id: procedure._id,
+  }).select({
+    additionalBenefits: { $elemMatch: { _id: req.params.id } },
+  });
+  const variable = approvedBenefit.additionalBenefits[0];
+  const newProcedure = await Procedure.findOneAndUpdate(
+    { _id: procedure._id },
+    { $push: { benefits: variable } },
+    { new: true, runValidators: true }
+  );
   res.status(StatusCodes.OK).json({ msg: "Benefit Approved, OK" });
 };
 const rejectBenefit = async (req, res) => {
@@ -132,6 +143,17 @@ const approveRisk = async (req, res) => {
       new: true,
       runValidators: true,
     }
+  );
+  const approvedRisk = await Procedure.findOne({
+    _id: procedure._id,
+  }).select({
+    additionalRisks: { $elemMatch: { _id: req.params.id } },
+  });
+  const variable = approvedRisk.additionalRisks[0];
+  const newProcedure = await Procedure.findOneAndUpdate(
+    { _id: procedure._id },
+    { $push: { risks: variable } },
+    { new: true, runValidators: true }
   );
   res.status(StatusCodes.OK).json({ msg: "Risk Approved" });
 };
