@@ -52,6 +52,39 @@ const getProcedure = async (req, res) => {
   }
   res.status(StatusCodes.OK).json({ procedures });
 };
+const deleteBenefit = async (req, res) => {
+  const updatedprocedure = await Procedure.findOneAndUpdate(
+    {
+      "benefits._id": req.params.id,
+    },
+    {
+      $pull: {
+        benefits: {
+          _id: req.params.id,
+        },
+      },
+    },
+    false
+  );
+  res.send("benefit deleted");
+};
+const deleteRisk = async (req, res) => {
+  const updatedprocedure = await Procedure.findOneAndUpdate(
+    {
+      "risks._id": req.params.id,
+    },
+    {
+      $pull: {
+        risks: {
+          _id: req.params.id,
+        },
+      },
+    },
+    false
+  );
+  res.send("Risk deleted");
+};
+
 const getSingleProcedure = async (req, res) => {
   const procedure = await Procedure.findOne({ _id: req.params.id });
   if (!procedure) {
@@ -179,6 +212,8 @@ module.exports = {
   updateUser,
   createProcedure,
   getProcedure,
+  deleteBenefit,
+  deleteRisk,
   getSingleProcedure,
   getProcedureByName,
   deleteProcedure,

@@ -12,6 +12,8 @@ const {
   getProcedureByName,
   updateProcedure,
   deleteProcedure,
+  deleteBenefit,
+  deleteRisk,
   approveBenefit,
   rejectBenefit,
   approveRisk,
@@ -31,6 +33,7 @@ router
   .get(getSingleProcedure)
   .patch(updateProcedure)
   .delete(deleteProcedure);
+router.route("/update-procedure/:id").patch(deleteBenefit).put(deleteRisk);
 //df
 router
   .route("/procedure/benefits/:id")
